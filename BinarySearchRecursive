@@ -1,0 +1,23 @@
+Private BinarySearchRecursive(int low, int high, int key, int[] A)
+{
+  if(low == high)
+  {
+    if(A[low] == key)
+    {
+      return low;
+    }
+    else
+    {
+      return -1;
+    }
+  }
+  int mid = (low + high)/2;
+  if(A[mid] == key)
+  {
+    return mid;
+  }
+  else if(A[mid] > key)
+    BinarySearchRecursive(low, mid-1, key, A);
+  else     
+    BinarySearchRecursive(low+1, mid, key, A);    
+}
