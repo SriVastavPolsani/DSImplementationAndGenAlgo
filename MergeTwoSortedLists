@@ -1,0 +1,26 @@
+Private void MergeAlgorithm(int[] A, int[] B, int m, int n)
+{
+  int[] C = new int[0];
+  int i , j, k = 0;
+  
+  while(i < m && j < n)
+  {
+    if(A[i] <= B[j]
+    {
+      C[k++] = A[i++];
+    }
+    else if(A[i] > B[j]
+    {
+      C[k++] = B[j++];
+    }
+  }
+  for(; i < m ; i++)
+  {
+    c[k++] = A[i];
+  }
+  for(; j < n ; j++)
+  {
+    c[k++] = B[j];
+  }
+  return C;
+}
