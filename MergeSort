@@ -1,0 +1,10 @@
+Private void MergeSort(int low, int high){
+int mid = (low + high)/2;
+
+while(low < high)
+{
+  MergeSort(low, mid);
+  MergeSort(mid + 1, high);
+  Merge(low, mid, high); // 2-way merging of two sorted lists starting from the bottom when there are two 1 element lists and merging all the way upwards.
+}
+}
