@@ -1,0 +1,21 @@
+Partition(i,j)
+{
+  pivot = A[i];
+  
+  While(i <j)
+  {
+    do{
+    i++;
+  }While(A[i] <= pivot);
+  
+  do{
+    j--;
+  }While(A[j] > pivot);
+  
+  if(i < j)
+  Swap(A[i], A[j]);
+  }
+  
+  Swap(A[j], pivot);
+  return j;
+}
