@@ -1,0 +1,112 @@
+using System;
+					
+public class Array <T>
+{
+	private T[] arr;
+	private int len = 0;
+	private int capacity = 0;
+	
+	//public Array() { this.Array(16); }
+	
+	public Array(int capacity){
+		if(capacity < 0)
+			throw new ArgumentException("Invalid capacity: " + capacity);
+		this.capacity = capacity;	
+		arr = new T[capacity];
+	}
+	
+	public int Size(){
+		return len;
+	}
+	
+	public bool isEmpty() {
+		return Size() == 0;
+	}
+	
+	public T get(int index){
+		return arr[index];
+	}
+	
+	public void set(int index, object obj){
+		arr[index] = (T)obj;
+	}
+	
+	public void clear()
+	{
+		for(int i=0; i < len; i++)
+		{
+			arr[i] = default(T);
+		}
+		len = 0;
+	}
+	
+	public void add(T elem)
+	{
+		if(len + 1 > capacity)
+		{	
+			if(capacity == 0)
+				capacity = 1;
+			capacity = 2*capacity;
+			T[] newArr = new T[capacity];
+			
+			for(int i = 0; i < len; i++)
+			{
+				newArr[i] = arr[i];
+			}
+			
+			arr = newArr;
+		}
+		arr[len++] = elem;
+	}
+	
+	public T removeAt(int rm_index)
+	{
+		if(rm_index < 0 || rm_index > len -1)
+			throw new ArgumentOutOfRangeException(rm_index + "is out of indexable range");
+		T elem = arr[rm_index];	
+		len = len - 1;
+		T[] newArr = new T[len];
+		
+		for(int i = 0, j = 0; i < len; i++,j++)
+		{
+			if(i == rm_index)
+				j--;
+			newArr[j] = arr[i];	
+		}
+		arr = newArr;
+		capacity = len--;
+		return elem;
+	}
+	
+	public bool remove(object obj)
+	{
+		for(int i = 0; i < len; i++)
+		{
+			if(arr[i].Equals((T)obj))
+			{
+				removeAt(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int indexOf(object obj)
+	{
+		for(int i = 0; i < len; i++)
+		{
+			if(arr[i].Equals((T)obj))
+			{
+				return i;
+			}
+		}
+		return -1;	
+	}
+	
+	public bool contains(object obj)
+	{
+		return indexOf(obj) != -1;
+	}
+	
+	
+}
