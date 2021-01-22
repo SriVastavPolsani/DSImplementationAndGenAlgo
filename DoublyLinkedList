@@ -1,0 +1,106 @@
+using System;
+					
+public class Node <T> {
+		public T data;
+		public Node <T> prev, next;
+		public Node(T data, Node <T> prev, Node <T> next){
+			this.data = data;
+			this.prev = prev;
+			this.next = next;
+		}
+		public override string ToString() {
+			return data.ToString();
+		}
+	}
+
+public class LinkedList <T>
+{
+	private int length = 0;
+	private Node <T> head = null;
+	private Node <T> tail = null;
+	
+
+	
+	public void clear() {
+		Node <T> trav;
+		trav = head;
+		
+		while(trav != null)
+		{
+			Node <T> next = trav.next;
+			trav.next = trav.prev = null;
+			trav.data = default(T);			
+		}
+		head = tail = trav = null;
+		length = 0;
+	}
+	
+	public int size() {
+		return length;
+	}
+	
+	public bool isEmpty() {
+		return size() == 0;
+	}
+	
+	public void add(T elem)
+	{
+		addLast(elem);	
+	}
+	
+	public void addFirst(T elem)
+	{
+		if(isEmpty())
+			head = tail = new Node<T>(elem, null, null);
+		else {
+			Node <T> newNode = new Node <T>(elem, null,null);
+			head.prev = newNode;
+			head = head.prev;
+		}
+	length++;				
+	}
+	
+	public void addLast(T elem)
+	{
+		if(isEmpty())
+			head = tail = new Node<T>(elem, null, null);
+		else {
+			Node <T> newNode = new Node <T>(elem, null,null);
+			tail.next = newNode;
+			tail = tail.next;
+		}
+	length++;				
+	}
+	
+	public T peekFirst()
+	{
+		if(isEmpty())
+			throw new MissingMemberException("List is Empty.");
+		return head.data;	
+	}
+	
+	public T peekLast()
+	{
+		if(isEmpty())
+			throw new MissingMemberException("List is Empty.");
+		return tail.data;	
+	}
+	
+	public T removeFirst() {
+		if(isEmpty())
+			throw new MissingMemberException("List is Empty.");
+		
+		T data = head.data;
+		head = head.next;
+		--length;
+		
+		if(isEmpty())
+			tail = null;
+		
+		//free up memory
+		head.prev = null;
+		
+		return data;
+	}
+	
+}
