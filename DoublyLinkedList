@@ -18,9 +18,7 @@ public class LinkedList <T>
 	private int length = 0;
 	private Node <T> head = null;
 	private Node <T> tail = null;
-	
-
-	
+		
 	public void clear() {
 		Node <T> trav;
 		trav = head;
@@ -29,7 +27,8 @@ public class LinkedList <T>
 		{
 			Node <T> next = trav.next;
 			trav.next = trav.prev = null;
-			trav.data = default(T);			
+			trav.data = default(T);		
+			trav = next;
 		}
 		head = tail = trav = null;
 		length = 0;
@@ -53,7 +52,7 @@ public class LinkedList <T>
 		if(isEmpty())
 			head = tail = new Node<T>(elem, null, null);
 		else {
-			Node <T> newNode = new Node <T>(elem, null,null);
+			Node <T> newNode = new Node <T>(elem, null,head);
 			head.prev = newNode;
 			head = head.prev;
 		}
@@ -65,7 +64,7 @@ public class LinkedList <T>
 		if(isEmpty())
 			head = tail = new Node<T>(elem, null, null);
 		else {
-			Node <T> newNode = new Node <T>(elem, null,null);
+			Node <T> newNode = new Node <T>(elem, tail,null);
 			tail.next = newNode;
 			tail = tail.next;
 		}
@@ -98,9 +97,128 @@ public class LinkedList <T>
 			tail = null;
 		
 		//free up memory
-		head.prev = null;
+		else
+		{
+		head.prev = null;		
+		}
 		
 		return data;
+	}
+	
+	public T removeLast() {
+	if(isEmpty())
+			throw new MissingMemberException("List is Empty.");
+	T data = tail.data;
+	tail = tail.prev;
+	
+	if(isEmpty())
+		head = null;
+		
+	//empty data	
+	else
+	{
+		tail.next = null;
+	}
+	
+	return data;			
+	}
+	
+	public T removeNode(Node <T> node) {
+		if(node.prev == null) removeFirst();
+		if(node.next == null) removeLast();
+		
+		node.prev.next = node.next;
+		node.next.prev = node.prev;
+		
+		T data = node.data;
+		
+		node.data = default(T);
+		node.prev = node.next = null;
+		length--;
+				
+		return data;
+	}
+	
+	public T removeAt(int index){
+		int i;
+		Node <T> trav;
+		
+		if(index < index/2){
+			for(i = 0, trav = head; i < index; i++)
+			{
+				trav = trav.next;
+			}
+		}
+		else
+		{
+			for(i = length-1, trav = tail; i > index; i--)
+			{
+				trav = trav.prev;
+			}	
+		}
+		removeNode(trav);
+	}
+	
+	public bool remove(Object obj)
+	{
+		Node <T> trav = head;
+		
+		if(obj == null)
+		{
+			for(trav = head; trav != null; trav = trav.next)
+			{
+				if(trav.data == null)
+				{
+					remove(trav);
+					return true;
+				}
+			}
+		}
+		else
+		{
+			for(trav = head; trav != null; trav = trav.next)
+			{
+				if(obj.Equals(trav.data))
+				{
+					remove(trav);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public int indexOf(Object obj)
+	{
+		int i = 0;
+		Node <T> trav = head;
+		
+		if(obj == null)
+		{
+			for(trav = head; trav != null; trav = trav.next, i++)
+			{
+				if(trav.data == null)
+				{
+					return i;
+				}
+			}
+		}
+		else
+		{
+			for(trav = head; trav != null; trav = trav.next,i++)
+			{
+				if(obj.Equals(trav.data))
+				{
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public bool contains(object obj)
+	{
+		return indexOf(obj) != -1;
 	}
 	
 }
