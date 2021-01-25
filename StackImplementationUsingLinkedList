@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+					
+public class Program
+{
+	public class Stack<T>{
+		LinkedList<T> list = new LinkedList<T>();
+		
+		public Stack(){
+		}
+		
+		public Stack(T firstElem){
+			Push(firstElem);
+		}
+		
+		public int Size(){
+			return list.Count;
+		}
+		
+		public bool IsEmpty(){
+			return Size() == 0;
+		}
+		
+		public void Push(T firstElem)
+		{
+			list.AddLast(firstElem);
+		}
+		
+		public T Pop(){
+			if(IsEmpty())
+			{
+				throw new Exception("Empty Stack");	
+			}
+			
+			else
+			{
+				T lastElem = list.Last.Value;
+				list.RemoveLast();	
+				return lastElem; 			
+			}
+		}
+		
+		public T Peek(){
+			if(IsEmpty())
+			{
+				throw new Exception("Empty Stack");	
+			}
+			
+			else
+			{
+				T lastElem = list.Last.Value;
+				return lastElem; 			
+			}
+		}
+		
+	}
+	public static void Main()
+	{
+		Stack<int> x = new Stack<int>();
+		x.Push(1);
+		x.Push(2);
+		x.Push(3);
+		
+		x.Pop();
+		
+		
+		
+		Console.WriteLine("Hello World " + x.Peek());
+	}
+}
