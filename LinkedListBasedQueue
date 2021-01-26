@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+					
+public class Program
+{
+	public class Queue<T>{
+		LinkedList<T> list = new LinkedList<T>();
+	
+	public Queue(){
+	}
+		
+	public Queue(T firstElem){
+		Offer(firstElem);
+	}
+		
+	public int Size(){
+		return list.Count;
+	}
+		
+	public bool IsEmpty(){
+		return Size() == 0;
+	}
+		
+	public T Peek(){
+		if(IsEmpty())
+			throw new Exception("Empty List");
+		else
+			return list.First.Value;		
+	}
+		
+	public T Poll(){
+		if(IsEmpty())
+			throw new Exception("Empty List");
+		else
+		{
+			T pollElement = list.First.Value;
+			list.RemoveFirst();
+			return pollElement;
+		}		
+	}
+		
+	public void Offer(T elem){
+		list.AddLast(elem);
+	}	
+
+		
+	}
+	public static void Main()
+	{	
+		Queue<string> testQ = new Queue<string>();
+		
+		testQ.Offer("Taker");
+		testQ.Offer("Gabbard");
+		testQ.Offer("Jones");
+		
+		testQ.Poll();
+		
+		Console.WriteLine("Hello World " + testQ.Peek());
+	}
+}
