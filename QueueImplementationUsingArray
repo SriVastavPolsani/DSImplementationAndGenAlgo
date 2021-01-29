@@ -1,0 +1,101 @@
+using System;
+					
+public class Program
+{
+	public const int MaxSize = 101;
+	
+	public class Queue<T>{
+	T[] arrayQueue = new T[MaxSize];
+	int front;
+	int rear;
+		
+	public Queue(){		
+		front = -1;
+		rear = -1;
+	}
+		
+	public Queue(T firstElem){
+		Offer(firstElem);
+	}
+		
+	public bool IsEmpty(){
+		return (front == -1 && rear == -1);
+	}
+		
+	public bool IsFull(){
+		//return (rear == MaxSize-1);
+		return (rear+1%MaxSize == front ? true : false); //circular Array Implementation
+	}	
+		
+	public T Peek(){
+		return arrayQueue[front];
+	}
+		
+	public int Size(){
+		if(IsEmpty())
+			return 0;
+		else if(front == rear)	
+			return 1;
+		else if(rear > front)
+			return (rear-front)+1;
+		else
+			return (MaxSize-rear) + (front + 1);
+	}	
+		
+	public T Poll(){
+		T pollElement = default(T);
+		if(IsEmpty())
+		{
+			throw new Exception("Queue is Empty.");
+		}
+		else if(front == rear)
+		{
+			pollElement = arrayQueue[front];
+			front = rear = -1;
+		}
+		else{
+			pollElement = arrayQueue[front];
+			front = (front+1)%MaxSize;		
+		}
+		return pollElement;
+	}
+		
+	public void Offer(T elem){
+		if(IsFull())
+		{
+			throw new Exception("Queue is Full.");
+		}
+		else if(IsEmpty())
+		{
+			front = rear = 0;
+		}
+		else{
+			rear = (rear+1)%MaxSize;		
+		}
+		arrayQueue[rear] = elem;		
+	}	
+
+		
+	}
+	public static void Main()
+	{	
+		Queue<string> exQueue = new Queue<string>();
+		
+		
+		exQueue.Offer("Parita");
+		exQueue.Offer("Snigdha");
+		exQueue.Offer("Vastav");
+		exQueue.Offer("Parag");
+		exQueue.Offer("Nithin");
+		exQueue.Offer("Yashu");
+		exQueue.Offer("Ramya");
+		exQueue.Offer("Sejal");
+		exQueue.Offer("YVP");
+		
+		exQueue.Poll();
+		exQueue.Poll();
+		
+		
+		Console.WriteLine("Hello World " + exQueue.Peek() + " Total " +  exQueue.Size());
+	}
+}
